@@ -19,7 +19,7 @@
 <body>
 
 <video id="video" loop crossOrigin="anonymous" muted autoplay playsinline style="display:none">
-  <source src="https://threejs.org/examples/textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+  <source src="loop.mp4" >
 </video>
 
 <script type="x-shader/x-vertex" id="vertexshader">
@@ -85,7 +85,7 @@
   const loader = new GLTFLoader();
 
   loader.load(
-          './scene (29).glb',
+          './cube01.glb',
           (gltf) => {
 
             const scene = new THREE.Scene();
@@ -148,7 +148,7 @@
             //const geometry = new THREE.Sphere(1, 1, 1);
             const geometry = new THREE.SphereGeometry(1.0, 32, 16);
 
-            const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+            const material = new THREE.MeshBasicMaterial({color: 0x60FF91});
             const sphere = new THREE.Mesh(geometry, material);
 
             sphere.position.x = -4;
@@ -161,14 +161,14 @@
 
             camera.position.y = 5;
             camera.position.z = 5;
-            camera.position.x = 5
+            camera.position.x = 5;
 
             const video = document.getElementById( 'video' );
             video.play();
 
             video.addEventListener( 'play', function () {
 
-              this.currentTime = 3;
+              this.currentTime = 0.0;
 
             } );
 
@@ -201,13 +201,19 @@
             const materialLibrary = [];
 
             materialLibrary.push(cubeMaterial);
+            /*
             materialLibrary.push(steelMaterial);
             materialLibrary.push(woodMaterial);
             materialLibrary.push(textileMaterial);
-
+*/
             const scene1 = gltf.scene;
 
-            const cubeMesh = scene1.children[0].children[0];
+            scene1.rotation.y = Math.PI;
+            scene1.scale.set(2,2,2);
+
+            scene1.children[1].visible = false;
+
+            const cubeMesh = scene1.children[2];
 
             cubeMesh.material = materialLibrary[0];
 
